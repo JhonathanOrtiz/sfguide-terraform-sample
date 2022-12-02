@@ -8,17 +8,30 @@ terraform {
 }
 
 provider "snowflake" {
-  role = "SYSADMIN"
+  alias            = "security_admin"
+  role             = "SECURITYADMIN"
+  username         = var.snowflake_user
+  account          = var.snowflake_account
+  private_key_path = var.private_key_path
+  region           = var.snowflake_region
 }
 
-resource "snowflake" "snoflake_warehouse" {
+provider "snowflake" {
+  role             = "SYSADMIN"
+  username         = var.snowflake_user
+  account          = var.snowflake_account
+  private_key_path = var.private_key_path
+  region           = var.snowflake_region
+}
+
+resource "snowflake_warehouse" "warehouse" {
   name           = "jhonathan_tf_demo_warehouse"
   warehouse_size = "large"
 
   auto_suspend = 60
 }
 
-resource "snowflake" "snowflake_db" {
+resource "snowflake_database" "database" {
   name = "jhonathan_tf_demo_db"
 
 }
