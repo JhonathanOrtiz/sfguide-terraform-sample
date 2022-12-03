@@ -1,6 +1,6 @@
 *.terraform*
 *.tf_state
 *.tfstate.*
-
+terraform.tfstate
 local.tfvars
 .env
